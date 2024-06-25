@@ -3,13 +3,13 @@ from telegram_notifier import send_message
 import json 
 import requests
 import asyncio
-import sys
 import time
+import toml
 
-date = sys.argv[1]
-hut_id = '151'
-
-telegram_ids = []
+config = toml.load('config.toml')
+telegram_ids = config['telegram']['ids']
+date = config['query-settings']['date']
+hut_id = config['query-settings']['id']
 
 room_types = {'7': 'Matratzenlager', '8': 'Mehrbettzimmer', '9': 'Zweierzimmer'}
 

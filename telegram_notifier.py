@@ -1,6 +1,8 @@
 import telegram
+import toml
 
-bot = telegram.Bot(token='')
+config = toml.load('config.toml')
+bot = telegram.Bot(token=config['bot']['token'])
 
 async def send_message(text, chat_id):
     async with bot:
