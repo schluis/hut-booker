@@ -9,7 +9,7 @@ import toml
 config = toml.load('config.toml')
 telegram_ids = config['telegram']['ids']
 date = config['query_settings']['date']
-hut_id = config['query_settings']['id']
+hut_id = config['query_settings']['hut_id']
 
 room_types = {'7': 'Matratzenlager', '8': 'Mehrbettzimmer', '9': 'Zweierzimmer'}
 
