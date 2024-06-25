@@ -21,6 +21,10 @@ query_link = f'https://www.alpsonline.org/reservation/selectDate?date={date}'
 
 counter = 0
 error_counter = 0
+
+for telegram_id in telegram_admin_ids:
+    asyncio.run(send_message("The fetcher has been started!", telegram_id))
+
 while True:
     try:
         while True:
