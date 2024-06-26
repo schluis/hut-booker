@@ -63,7 +63,9 @@ while True:
                     message += f"{room_type_name} ({free_rooms}/{total_rooms}) - {reserved_rooms_ratio * 100:.2f}% reserved\n"
 
                 if total_number_of_free_rooms > 0:
-                    message += f"\nThere are {total_number_of_free_rooms} free rooms available at the hut!\n\n\n"
+                    message += f"\nThere are {total_number_of_free_rooms} free rooms available at the hut!\n"
+
+                message += "\n"
 
             if message != last_sent_message:
                 print(message)
