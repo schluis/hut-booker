@@ -5,6 +5,7 @@ import requests
 import asyncio
 import time
 import toml
+from datetime import datetime
 
 config = toml.load('config.toml')
 telegram_ids = config['telegram']['ids']
@@ -19,8 +20,8 @@ room_types = {'7': 'Matratzenlager', '8': 'Mehrbettzimmer', '9': 'Zweierzimmer'}
 hut_link = f'https://www.alpsonline.org/reservation/calendar?hut_id={hut_id}&header=no'
 query_link = f'https://www.alpsonline.org/reservation/selectDate?date={date}'
 
-counter = 0
 error_counter = 0
+last_sent_message = ""
 
 for telegram_id in telegram_admin_ids:
     asyncio.run(send_message("The fetcher has been started!", telegram_id))
@@ -51,25 +52,27 @@ while True:
 
             if total_number_of_free_rooms > 0:
                 message += f"\nThere are {total_number_of_free_rooms} free rooms available at the hut on {date}!\n\n"
+
+            if message != last_sent_message:
+                print(message)
                 for telegram_id in telegram_ids:
                     asyncio.run(send_message(message, telegram_id))
+                
+                last_sent_message = message
 
-            print(message)
-
-            if counter >= 30:
+            if datetime.now().hour == 9 and datetime.now().minute == 0:
+                error_counter = 0
                 for telegram_id in telegram_admin_ids:
-                    asyncio.run(send_message(message, telegram_id))
+                    asyncio.run(send_message("Service up and running...", telegram_id))
 
-                counter = 0
-
-            time.sleep(60)
-            counter += 1
+            sleeptime = 120 - datetime.now().second
+            time.sleep(sleeptime)
 
     except Exception as e:
         print(e)
         
         error_counter += 1 
-        if error_counter <=10:
+        if error_counter <=20:
             for telegram_id in telegram_admin_ids:
                 asyncio.run(send_message(f"An error occurred: {e}\nExecution resumes in 120 seconds!", telegram_id))
             
