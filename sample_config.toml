@@ -1,0 +1,11 @@
+[query_settings]
+date = "29.06.2024"
+days = 2
+hut_id = 151
+
+[telegram]
+admin_ids = []
+ids = []
+
+[bot]
+token = ''
