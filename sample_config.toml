@@ -2,6 +2,7 @@
 date = "29.06.2024"
 days = 2
 hut_id = 151
+interval = 300
 
 [telegram]
 admin_ids = []

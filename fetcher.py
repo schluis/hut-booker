@@ -15,6 +15,7 @@ telegram_admin_ids = config["telegram"]["admin_ids"]
 date = config["query_settings"]["date"]
 days = config["query_settings"]["days"]
 hut_id = config["query_settings"]["hut_id"]
+query_interval = config["query_settings"]["interval"]
 
 room_types = {"7": "Matratzenlager", "8": "Mehrbettzimmer", "9": "Zweierzimmer"}
 
@@ -89,7 +90,7 @@ while True:
                             asyncio.run(send_message(hard_error_message, telegram_id))
                         hard_error_message = ""
 
-                    time.sleep(120)
+                    time.sleep(query_interval)
 
             except Exception as e:
                 print(e)
