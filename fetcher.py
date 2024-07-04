@@ -24,6 +24,7 @@ hut_link = f"https://www.alpsonline.org/reservation/calendar?hut_id={hut_id}&hea
 query_link = f"https://www.alpsonline.org/reservation/selectDate?date={date}"
 
 error_counter = 0
+status_message_sent = False
 last_sent_message = ""
 hard_error_message = ""
 
@@ -76,7 +77,7 @@ while True:
 
                         last_sent_message = message
 
-                    if datetime.now().hour == 7 and datetime.now().minute == 0:
+                    if datetime.now().hour >= 7 and not status_message_sent:
                         error_counter = 0
                         for telegram_id in telegram_admin_ids:
                             asyncio.run(
@@ -84,6 +85,10 @@ while True:
                                     "Service still up and running...", telegram_id
                                 )
                             )
+                        status_message_sent = True
+                    
+                    if datetime.now().hour >= 20:
+                        status_message_sent = False
 
                     if hard_error_message != "":
                         for telegram_id in telegram_admin_ids:
