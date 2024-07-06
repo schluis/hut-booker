@@ -77,7 +77,7 @@ while True:
 
                         last_sent_message = message
 
-                    if datetime.now().hour >= 7 and not status_message_sent:
+                    if datetime.now().hour >= 7 and datetime.now().hour < 12 and not status_message_sent:
                         error_counter = 0
                         for telegram_id in telegram_admin_ids:
                             asyncio.run(
